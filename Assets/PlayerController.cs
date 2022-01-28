@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-<<<<<<< Updated upstream
     public bool isMakingAction()
     {
         return false;
@@ -13,7 +12,6 @@ public class PlayerController : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-=======
     PlayerInputs playerInputs;
     CharacterController characterController;
 
@@ -51,7 +49,6 @@ public class PlayerController : MonoBehaviour
     }
 
     void onMovementInput(InputAction.CallbackContext context) 
->>>>>>> Stashed changes
     {
         currentMovementInput = context.ReadValue<Vector2>();
         currentMovement.x = currentMovementInput.x;
@@ -63,7 +60,7 @@ public class PlayerController : MonoBehaviour
     {
         if (characterController.isGrounded)
         {
-            float groundedGravity = -.05f; //Character controllerin on pakko saada joku alasp‰in vet‰v‰ arvo
+            float groundedGravity = -.05f; //Character controllerin on pakko saada joku alasp√§in vet√§v√§ arvo
             currentMovement.y = groundedGravity;
         }
         else 
