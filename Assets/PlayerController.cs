@@ -5,13 +5,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public bool isMakingAction()
-    {
-        return false;
-    }
-
-    // Start is called before the first frame update
-    void Start()
     PlayerInputs playerInputs;
     CharacterController characterController;
 
@@ -19,8 +12,12 @@ public class PlayerController : MonoBehaviour
     Vector2 currentMovementInput;
     Vector3 currentMovement;
     bool isMovementPressed;
-    float rotationFactorPerFrame = 1.0f;
-    
+    float rotationFactorPerFrame = 15.0f;
+
+    public bool isMakingAction()
+    {
+        return false;
+    }
     void Awake()
     {
         playerInputs = new PlayerInputs();
@@ -43,12 +40,12 @@ public class PlayerController : MonoBehaviour
         if (isMovementPressed)
         {
             Quaternion targetRotation = Quaternion.LookRotation(positionToLookAt);
-            transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, rotationFactorPerFrame);
+            transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, rotationFactorPerFrame * Time.deltaTime);
         }
 
     }
 
-    void onMovementInput(InputAction.CallbackContext context) 
+    void onMovementInput(InputAction.CallbackContext context)
     {
         currentMovementInput = context.ReadValue<Vector2>();
         currentMovement.x = currentMovementInput.x;
@@ -63,12 +60,12 @@ public class PlayerController : MonoBehaviour
             float groundedGravity = -.05f; //Character controllerin on pakko saada joku alaspäin vetävä arvo
             currentMovement.y = groundedGravity;
         }
-        else 
+        else
         {
             float gravity = -9.8f;
             currentMovement.y += gravity;
         }
-       
+
 
     }
 
@@ -91,3 +88,4 @@ public class PlayerController : MonoBehaviour
         playerInputs.Gameplay.Disable();
     }
 }
+
