@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public bool isMakingAction()
+    {
+        return false;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
