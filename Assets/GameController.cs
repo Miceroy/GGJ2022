@@ -5,19 +5,29 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    void loadNextLevel()
+    void levelPassed()
     {
-        ++sceneIndex;
-        string levels = sceneIndex.ToString() + "/" + SceneManager.sceneCountInBuildSettings.ToString();
-        if (sceneIndex < SceneManager.sceneCountInBuildSettings)
+        if (GameResults.Instance)
         {
-            Debug.Log("Loading next scene: " + levels);
-            SceneManager.LoadScene(sceneIndex);
+            ++sceneIndex;
+            string levels = sceneIndex.ToString() + "/" + SceneManager.sceneCountInBuildSettings.ToString();
+            if (sceneIndex < (SceneManager.sceneCountInBuildSettings - 1))
+            {
+                Debug.Log("Level passed. Loading next level: " + levels);
+                SceneManager.LoadScene(sceneIndex);
+            }
+            else
+            {
+                Debug.Log("Game WIN!");
+                sceneIndex = SceneManager.sceneCountInBuildSettings - 1;
+                GameResults.Instance.didWin = true;
+                SceneManager.LoadScene(sceneIndex);
+            }
         }
         else
         {
-            Debug.Log("Game win " + levels + "! Loading main menu.");
-            SceneManager.LoadScene(0);
+            Debug.Log("Level passed! Reloading scene, because not started from main menu.");
+            SceneManager.LoadScene(sceneIndex);
         }
     }
 
@@ -47,7 +57,7 @@ public class GameController : MonoBehaviour
                 ++numPlayersInGoal;
                 if(numPlayersInGoal == players.Count)
                 {
-                    loadNextLevel();
+                    levelPassed();
                 }
             }
         }
