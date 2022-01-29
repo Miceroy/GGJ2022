@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
 
     public void swapPlayerCharacter()
     {
-        Debug.Log("swapPlayerCharacter: " + activePlayerCharacter.ToString());
+        //Debug.Log("swapPlayerCharacter: " + activePlayerCharacter.ToString());
         players[activePlayerCharacter].enabled = false;
         //Debug.Log("swapPlayerCharacter");
         activePlayerCharacter = (activePlayerCharacter + 1) % players.Count;
