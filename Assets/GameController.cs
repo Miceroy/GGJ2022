@@ -139,7 +139,7 @@ public class GameController : MonoBehaviour
             {
                 if (player.isMakingAction())
                 {
-                    action.effect.act();
+                    action.actAll();
                 }
                 else
                 {
