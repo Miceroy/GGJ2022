@@ -7,15 +7,49 @@ public class GameController : MonoBehaviour
 {
     public void playerHitsLight(PlayerController player, LightDetector detector)
     {
-        //Debug.Log(player.gameObject.name +  " hits light");
-
+        if(player.lightState == PlayerController.LightState.Unknown)
+        {
+            player.lightState = PlayerController.LightState.InLight;
+        }
+        else
+        {
+            if (player.lightState == PlayerController.LightState.InShadow)
+            {
+                Debug.Log("Lose by character going in light: " + player.gameObject.name);
+                loseGame();
+            }
+        }
     }
 
     public void playerNotHitsLight(PlayerController player, LightDetector detector)
     {
-        //Debug.Log(player.gameObject.name + " not hits light");
+        if (player.lightState == PlayerController.LightState.Unknown)
+        {
+            player.lightState = PlayerController.LightState.InShadow;
+        }
+        else
+        {
+            if (player.lightState == PlayerController.LightState.InLight) {
+                Debug.Log("Game LOSE! Caracter going in shadow: " + player.gameObject.name);
+                loseGame();
+            }
+        }
     }
 
+    void loseGame()
+    {
+        if (GameResults.Instance)
+        {
+            sceneIndex = SceneManager.sceneCountInBuildSettings - 1;
+            GameResults.Instance.didWin = false;
+            SceneManager.LoadScene(sceneIndex);
+        }
+        else
+        {
+            Debug.Log("Game lose! Reloading scene, because not started from main menu.");
+            SceneManager.LoadScene(sceneIndex);
+        }
+    }
 
     public void swapPlayerCharacter()
     {
