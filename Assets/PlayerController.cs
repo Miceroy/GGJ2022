@@ -73,21 +73,6 @@ public class PlayerController : MonoBehaviour
         isMovementPressed = currentMovementInput.x != 0 || currentMovementInput.y != 0;
     }
 
-    void handleGravity()
-    {
-        if (characterController.isGrounded)
-        {
-            float groundedGravity = -.05f; //Character controllerin on pakko saada joku alaspäin vetävä arvo
-            currentMovement.y = groundedGravity;
-        }
-        else
-        {
-            float gravity = -9.8f;
-            currentMovement.y += gravity;
-        }
-
-
-    }
     private void Start()
     {
         getGameController().register(this);
@@ -96,7 +81,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        handleGravity();
         handleRotation();
         characterController.Move(currentMovement * speed * Time.deltaTime);
     }
