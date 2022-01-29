@@ -43,16 +43,16 @@ public class LightDetector : MonoBehaviour
 
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
-        Vector3 pos = transform.position - 1 * lightDir;
+        Vector3 pos = transform.position + (0.5f * lightDir);
         if (Physics.Raycast(pos, lightDir, out hit, Mathf.Infinity, layerMask))
         {
-            Debug.DrawRay(pos, lightDir * hit.distance, Color.red);
-            getGameController().playerHitsLight(player, this);
+            Debug.DrawRay(pos - (0.5f * lightDir), lightDir * hit.distance, Color.cyan);
+            getGameController().playerNotHitsLight(player, this);
         }
         else
         {
-            Debug.DrawRay(pos, lightDir * 1000, Color.yellow);
-            getGameController().playerNotHitsLight(player, this);
+            Debug.DrawRay(pos - (0.5f * lightDir), lightDir * 1000, Color.magenta);
+            getGameController().playerHitsLight(player, this);
         }
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 416132642}
   m_Layer: 0
   m_Name: DirectionalLight
-  m_TagString: Untagged
+  m_TagString: MainLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 4201850897333330643}
   m_Layer: 0
   m_Name: MainLight
-  m_TagString: MainLight
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
