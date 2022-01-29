@@ -35,7 +35,6 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
-        getGameController().register(this);
         playerInputs = new PlayerInputs();
         characterController = GetComponent<CharacterController>();
 
@@ -89,7 +88,10 @@ public class PlayerController : MonoBehaviour
 
 
     }
-
+    private void Start()
+    {
+        getGameController().register(this);
+    }
 
     // Update is called once per frame
     void Update()
