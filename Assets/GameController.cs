@@ -12,6 +12,13 @@ public class GameController : MonoBehaviour
         return go;
     }
 
+    GameObject[] getGameObjects(string tag)
+    {
+        GameObject[] gos = GameObject.FindGameObjectsWithTag(tag);
+        Debug.AssertFormat(gos.Length > 0, "Did not found game object of type: " + tag);
+        return gos;
+    }
+
     public void playerHitsLight(PlayerController player, LightDetector detector)
     {
         if(player.lightState == PlayerController.LightState.Unknown)
@@ -88,12 +95,12 @@ public class GameController : MonoBehaviour
     private int sceneIndex;
     private int activePlayerCharacter;
 
-    GameObject[] getGameObjects(string tag)
+    /*GameObject[] getGameObjects(string tag)
     {
         GameObject[] gos = GameObject.FindGameObjectsWithTag(tag);
         Debug.AssertFormat(gos.Length > 0, "Did not found game objects of type: " + tag);
         return gos;
-    }
+    }*/
 
     List<PlayerController> players;
 
@@ -130,10 +137,6 @@ public class GameController : MonoBehaviour
                 if (player.isMakingAction())
                 {
                     action.actAll();
-                }
-                else
-                {
-                    //Debug.Log("Player near, but not making action");
                 }
             }
         }
