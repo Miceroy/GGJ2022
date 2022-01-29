@@ -27,11 +27,13 @@ public class PlayerController : MonoBehaviour
     float rotationFactorPerFrame = 15.0f;
 
     public bool canMove = true;
+    private bool makesAction = false;
 
     public bool isMakingAction()
     {
-        return false;
+        return makesAction;
     }
+
     void Awake()
     {
         getGameController().register(this);
@@ -41,6 +43,11 @@ public class PlayerController : MonoBehaviour
         playerInputs.Gameplay.Movement.started += onMovementInput;
         playerInputs.Gameplay.Movement.canceled += onMovementInput;
         playerInputs.Gameplay.Movement.performed += onMovementInput;
+
+        playerInputs.Gameplay.Action.started += context => makesAction = true;
+        playerInputs.Gameplay.Action.performed += context => makesAction = true;
+        playerInputs.Gameplay.Action.canceled += context => makesAction = false;
+        playerInputs.Gameplay.Swap.performed += context => getGameController().swapPlayerCharacter();
     }
 
     void handleRotation()
