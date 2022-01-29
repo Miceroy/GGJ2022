@@ -19,6 +19,7 @@ public class PushableItemController : MonoBehaviour
         if (direction.magnitude > 0)
         {
             transform.Translate(20 * direction * Time.fixedDeltaTime);
+            direction.Set(0, 0, 0);
         }
     }
 

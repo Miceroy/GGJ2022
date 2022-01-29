@@ -67,7 +67,6 @@ public class GameController : MonoBehaviour
 
     public void itemCollisionExit(PushableItemController item, GameObject go)
     {
-        item.direction.Set(0, 0, 0);
     }
 
     public void swapPlayerCharacter()
