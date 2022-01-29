@@ -34,6 +34,8 @@ public class PlayerController : MonoBehaviour
 
     public LightState lightState;
 
+    Animator animator;
+
     public enum LightState
     {
         Unknown,
@@ -48,6 +50,9 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
+
+        animator = GetComponent<Animator>();
+        animator.SetBool("IsMoving", false);
         playerInputs = new PlayerInputs();
         characterController = GetComponent<CharacterController>();
 
@@ -85,6 +90,7 @@ public class PlayerController : MonoBehaviour
         currentMovement = camera.transform.forward * currentMovementInput.y;
         currentMovement += camera.transform.right * currentMovementInput.x;
         isMovementPressed = currentMovement.x != 0 || currentMovement.y != 0;
+        animator.SetBool("IsMoving", isMovementPressed);
     }
 
     private void Start()
@@ -101,7 +107,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnEnable()
-    {
+    {        
         playerInputs.Gameplay.Enable();
     }
 
