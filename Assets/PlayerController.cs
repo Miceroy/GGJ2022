@@ -79,9 +79,10 @@ public class PlayerController : MonoBehaviour
     void onMovementInput(InputAction.CallbackContext context)
     {
         currentMovementInput = context.ReadValue<Vector2>();
-        currentMovement.x = currentMovementInput.x;
-        currentMovement.z = currentMovementInput.y;
-        isMovementPressed = currentMovementInput.x != 0 || currentMovementInput.y != 0;
+        Camera camera = getGameObject("MainCamera").GetComponent<Camera>();
+        currentMovement = camera.transform.forward * currentMovementInput.y;
+        currentMovement += camera.transform.right * currentMovementInput.x;
+        isMovementPressed = currentMovement.x != 0 || currentMovement.y != 0;
     }
 
     private void Start()
