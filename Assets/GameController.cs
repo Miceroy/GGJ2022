@@ -5,6 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+    GameObject getGameObject(string tag)
+    {
+        GameObject go = GameObject.FindGameObjectWithTag(tag);
+        Debug.AssertFormat(go, "Did not found game object of type: " + tag);
+        return go;
+    }
+
     public void playerHitsLight(PlayerController player, LightDetector detector)
     {
         if(player.lightState == PlayerController.LightState.Unknown)
@@ -53,11 +60,12 @@ public class GameController : MonoBehaviour
 
     public void swapPlayerCharacter()
     {
-        //Debug.Log("swapPlayerCharacter: " + activePlayerCharacter.ToString());
+        Cinemachine.CinemachineFreeLook cam = getGameObject("CinematicCamera").GetComponent<Cinemachine.CinemachineFreeLook>();
         players[activePlayerCharacter].enabled = false;
-        //Debug.Log("swapPlayerCharacter");
         activePlayerCharacter = (activePlayerCharacter + 1) % players.Count;
         players[activePlayerCharacter].enabled = true;
+        cam.Follow = players[activePlayerCharacter].transform;
+        cam.LookAt = players[activePlayerCharacter].transform;
     }
 
     void levelPassed()
