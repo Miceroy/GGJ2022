@@ -7,6 +7,7 @@ public class LightDetector : MonoBehaviour
     public PlayerController player;
 
     Vector3 lightDir;
+    bool hitsLight = false;
     GameObject getGameObject(string tag)
     {
         GameObject go = GameObject.FindWithTag(tag);
@@ -33,6 +34,7 @@ public class LightDetector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        hitsLight = false;
         //Debug.DrawLine(transform.position, transform.position + (10 * lightDir), Color.red);
         //Debug.DrawLine(transform.position, transform.position + (-10 * lightDir), Color.green);
     }
@@ -49,13 +51,34 @@ public class LightDetector : MonoBehaviour
         layerMask = ~layerMask;
 
         RaycastHit hit;
-        bool hitsLight = false;
         // Does the ray intersect any objects excluding the player layer
         Vector3 pos = transform.position + (0.5f * lightDir);
         if (Physics.Raycast(pos, lightDir, out hit, Mathf.Infinity, layerMask))
         {
             Debug.DrawRay(pos - (0.5f * lightDir), lightDir * hit.distance, Color.cyan);
-            hitsLight = false;
+            GameObject[] gos = getGameObjects("PushableLight");
+            foreach (GameObject go in gos)
+            {
+                Vector3 direction = (go.transform.position - pos).normalized;
+                float distance = (go.transform.position - pos).magnitude;
+                if (Physics.Raycast(pos, direction, out hit, distance, layerMask))
+                {
+                    Debug.DrawRay(pos - (0.5f * direction), direction * hit.distance, Color.cyan);
+                }
+                else
+                {
+                    if (distance < go.GetComponent<PushableLight>().radius)
+                    {
+                        Debug.DrawRay(pos - (0.5f * direction), direction * distance, Color.magenta);
+                        Debug.Log("Is in pushable light!");
+                        hitsLight = true;
+                    }
+                    else
+                    {
+                        Debug.DrawRay(pos - (0.5f * direction), direction * hit.distance, Color.cyan);
+                    }
+                }
+            }
         }
         else
         {
@@ -63,29 +86,7 @@ public class LightDetector : MonoBehaviour
             hitsLight = true;
         }
 
-        GameObject[] gos = getGameObjects("PushableLight");
-        foreach (GameObject go in gos)
-        {
-            Vector3 direction = (go.transform.position - pos).normalized;
-            float distance = (go.transform.position - pos).magnitude;
-            if (Physics.Raycast(pos, direction, out hit, distance, layerMask))
-            {
-                Debug.DrawRay(pos - (0.5f * direction), direction * hit.distance, Color.cyan);
-            }
-            else
-            {
-                if (distance < go.GetComponent<PushableLight>().radius)
-                {
-                    Debug.DrawRay(pos - (0.5f * direction), direction * distance, Color.magenta);
-                    Debug.Log("Is in pushable light!");
-                    hitsLight = true;
-                }
-                else
-                {
-                    Debug.DrawRay(pos - (0.5f * direction), direction * hit.distance, Color.cyan);
-                }
-            }
-        }
+        
 
         if (hitsLight)
         {
