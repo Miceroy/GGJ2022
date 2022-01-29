@@ -30,6 +30,15 @@ public class PlayerController : MonoBehaviour
 
     private bool makesAction = false;
 
+    public LightState lightState;
+
+    public enum LightState
+    {
+        Unknown,
+        InLight,
+        InShadow
+    }
+
     public bool isMakingAction()
     {
         return makesAction;
