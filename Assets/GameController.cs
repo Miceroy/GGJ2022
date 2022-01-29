@@ -101,7 +101,7 @@ public class GameController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Player near, but not making action");
+                    //Debug.Log("Player near, but not making action");
                 }
             }
         }
