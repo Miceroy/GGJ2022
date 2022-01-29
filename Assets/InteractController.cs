@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InteractController : MonoBehaviour
 {
+    public MonoBehaviour handlerComponent;
     public float radius = 1;
     public IEffectHandler effect;
 
@@ -19,6 +20,7 @@ public class InteractController : MonoBehaviour
     private void Start()
     {
         gameCtrl = getGameObject("GameController").GetComponent<GameController>();
+        effect = handlerComponent.GetComponent<IEffectHandler>();
     }
 
     private void Update()

@@ -5,6 +5,18 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    GameObject getGameObject(string tag)
+    {
+        GameObject go = GameObject.FindGameObjectWithTag(tag);
+        Debug.AssertFormat(go, "Did not found game object of type: " + tag);
+        return go;
+    }
+
+    GameController getGameController()
+    {
+        return getGameObject("GameController").GetComponent<GameController>();
+    }
+
     PlayerInputs playerInputs;
     CharacterController characterController;
 
@@ -14,12 +26,15 @@ public class PlayerController : MonoBehaviour
     bool isMovementPressed;
     float rotationFactorPerFrame = 15.0f;
 
+    bool canMove = true;
+
     public bool isMakingAction()
     {
         return false;
     }
     void Awake()
     {
+        getGameController().register(this);
         playerInputs = new PlayerInputs();
         characterController = GetComponent<CharacterController>();
 
@@ -47,10 +62,13 @@ public class PlayerController : MonoBehaviour
 
     void onMovementInput(InputAction.CallbackContext context)
     {
-        currentMovementInput = context.ReadValue<Vector2>();
-        currentMovement.x = currentMovementInput.x;
-        currentMovement.z = currentMovementInput.y;
-        isMovementPressed = currentMovementInput.x != 0 || currentMovementInput.y != 0;
+        if (canMove)
+        {
+            currentMovementInput = context.ReadValue<Vector2>();
+            currentMovement.x = currentMovementInput.x;
+            currentMovement.z = currentMovementInput.y;
+            isMovementPressed = currentMovementInput.x != 0 || currentMovementInput.y != 0;
+        }
     }
 
     void handleGravity()
