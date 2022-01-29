@@ -7,13 +7,13 @@ public class GameController : MonoBehaviour
 {
     public void playerHitsLight(PlayerController player, LightDetector detector)
     {
-        Debug.Log(player.gameObject.name +  " hits light");
+        //Debug.Log(player.gameObject.name +  " hits light");
 
     }
 
     public void playerNotHitsLight(PlayerController player, LightDetector detector)
     {
-        Debug.Log(player.gameObject.name + " not hits light");
+        //Debug.Log(player.gameObject.name + " not hits light");
     }
 
 
@@ -96,6 +96,10 @@ public class GameController : MonoBehaviour
                 if (player.isMakingAction())
                 {
                     action.effect.act();
+                }
+                else
+                {
+                    Debug.Log("Player near, but not making action");
                 }
             }
         }

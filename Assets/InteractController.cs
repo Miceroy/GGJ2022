@@ -21,6 +21,7 @@ public class InteractController : MonoBehaviour
     {
         gameCtrl = getGameObject("GameController").GetComponent<GameController>();
         effect = handlerComponent.GetComponent<IEffectHandler>();
+        Debug.AssertFormat(effect != null, "Effect for " + gameObject.name + " not found!");
     }
 
     private void Update()
