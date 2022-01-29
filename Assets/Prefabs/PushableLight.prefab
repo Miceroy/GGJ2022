@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3288515243283592342}
   - component: {fileID: 1009836638}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 1874915092762294617}
   - component: {fileID: 1874915092762294621}
   - component: {fileID: 1942197571}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PushableLight
   m_TagString: PushableLight
   m_Icon: {fileID: 0}
