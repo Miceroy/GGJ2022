@@ -17,7 +17,7 @@ public class LightDetector : MonoBehaviour
     GameObject[] getGameObjects(string tag)
     {
         GameObject[] gos = GameObject.FindGameObjectsWithTag(tag);
-        Debug.AssertFormat(gos.Length > 0, "Did not found game object of type: " + tag);
+        //Debug.AssertFormat(gos.Length > 0, "Did not found game object of type: " + tag);
         return gos;
     }
     GameController getGameController()
