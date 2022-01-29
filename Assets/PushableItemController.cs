@@ -4,32 +4,36 @@ using UnityEngine;
 
 public class PushableItemController : MonoBehaviour
 {
-    Vector3 direction;
 
-    // Start is called before the first frame update
-    void Start()
+    public Vector3 direction;
+
+    GameObject getGameObject(string tag)
     {
-        
+        GameObject go = GameObject.FindGameObjectWithTag(tag);
+        Debug.AssertFormat(go, "Did not found game object of type: " + tag);
+        return go;
     }
 
     private void Update()
     {
-        if(direction.magnitude > 0)
+        if (direction.magnitude > 0)
         {
             transform.Translate(10 * direction * Time.deltaTime);
         }
     }
 
+    GameController getGameController()
+    {
+        return getGameObject("GameController").GetComponent<GameController>();
+    }
+        
     private void OnTriggerEnter(Collider other)
     {
-        direction = (transform.position - other.transform.position).normalized;
-        direction.y = 0;
-        direction.Normalize();
+        getGameController().itemCollisionEnter(this,other.gameObject);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        direction.Set(0,0,0);
+        getGameController().itemCollisionExit(this, other.gameObject);
     }
-
 }

@@ -54,6 +54,21 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void itemCollisionEnter(PushableItemController item, GameObject go)
+    {
+        PlayerController player = go.GetComponent<PlayerController>();
+        if (player)
+        {
+            item.direction = player.lastDelta;
+            item.direction.y = 0;
+            item.direction.Normalize();
+        }
+    }
+
+    public void itemCollisionExit(PushableItemController item, GameObject go)
+    {
+        item.direction.Set(0, 0, 0);
+    }
 
     public void swapPlayerCharacter()
     {

@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public Vector3 lastDelta;
+
     GameObject getGameObject(string tag)
     {
         GameObject go = GameObject.FindGameObjectWithTag(tag);
@@ -94,7 +96,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         handleRotation();
-        characterController.Move(currentMovement * speed * Time.deltaTime);
+        lastDelta = currentMovement * speed * Time.deltaTime;
+        characterController.Move(lastDelta);
     }
 
     void OnEnable()
