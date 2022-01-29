@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
         return getGameObject("GameController").GetComponent<GameController>();
     }
 
+
     PlayerInputs playerInputs;
     CharacterController characterController;
 
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
     Vector3 currentMovement;
     bool isMovementPressed;
     float rotationFactorPerFrame = 15.0f;
+    public Transform cam;
 
     private bool makesAction = false;
 

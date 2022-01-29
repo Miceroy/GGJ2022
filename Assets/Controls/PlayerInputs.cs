@@ -53,6 +53,15 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Looking"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""abaf6d05-0702-4d80-adff-71ce36733a04"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -165,6 +174,28 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                     ""action"": ""Swap"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""676b531d-6376-46b1-863f-b74fd1bc8b19"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Looking"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""06c7d8aa-4ef5-41ac-b4de-5c217fde6715"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Looking"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -176,6 +207,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
         m_Gameplay_Movement = m_Gameplay.FindAction("Movement", throwIfNotFound: true);
         m_Gameplay_Action = m_Gameplay.FindAction("Action", throwIfNotFound: true);
         m_Gameplay_Swap = m_Gameplay.FindAction("Swap", throwIfNotFound: true);
+        m_Gameplay_Looking = m_Gameplay.FindAction("Looking", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -238,6 +270,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Movement;
     private readonly InputAction m_Gameplay_Action;
     private readonly InputAction m_Gameplay_Swap;
+    private readonly InputAction m_Gameplay_Looking;
     public struct GameplayActions
     {
         private @PlayerInputs m_Wrapper;
@@ -245,6 +278,7 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Gameplay_Movement;
         public InputAction @Action => m_Wrapper.m_Gameplay_Action;
         public InputAction @Swap => m_Wrapper.m_Gameplay_Swap;
+        public InputAction @Looking => m_Wrapper.m_Gameplay_Looking;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -263,6 +297,9 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                 @Swap.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSwap;
                 @Swap.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSwap;
                 @Swap.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSwap;
+                @Looking.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLooking;
+                @Looking.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLooking;
+                @Looking.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLooking;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -276,6 +313,9 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
                 @Swap.started += instance.OnSwap;
                 @Swap.performed += instance.OnSwap;
                 @Swap.canceled += instance.OnSwap;
+                @Looking.started += instance.OnLooking;
+                @Looking.performed += instance.OnLooking;
+                @Looking.canceled += instance.OnLooking;
             }
         }
     }
@@ -285,5 +325,6 @@ public partial class @PlayerInputs : IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnAction(InputAction.CallbackContext context);
         void OnSwap(InputAction.CallbackContext context);
+        void OnLooking(InputAction.CallbackContext context);
     }
 }
