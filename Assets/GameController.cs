@@ -1,9 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+    void loadNextLevel()
+    {
+        ++sceneIndex;
+        string levels = sceneIndex.ToString() + "/" + SceneManager.sceneCountInBuildSettings.ToString();
+        if (sceneIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            Debug.Log("Loading next scene: " + levels);
+            SceneManager.LoadScene(sceneIndex);
+        }
+        else
+        {
+            Debug.Log("Game win " + levels + "! Loading main menu.");
+            SceneManager.LoadScene(0);
+        }
+    }
+
+    private int numPlayersInGoal;
+    private int sceneIndex;
+
     GameObject[] getGameObjects(string tag)
     {
         GameObject[] gos = GameObject.FindGameObjectsWithTag(tag);
@@ -24,6 +44,11 @@ public class GameController : MonoBehaviour
             if ((playerPos - pos).magnitude < radius)
             {
                 Debug.Log("PlayerInGoal");
+                ++numPlayersInGoal;
+                if(numPlayersInGoal == players.Count)
+                {
+                    loadNextLevel();
+                }
             }
         }
     }
@@ -55,7 +80,7 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        sceneIndex = SceneManager.GetActiveScene().buildIndex;
         /*GameObject[] gos = getGameObjects("Player");
         foreach(GameObject go in gos)
         {
@@ -68,5 +93,6 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        numPlayersInGoal = 0;
     }
 }
