@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class LightDetector : MonoBehaviour
 {
+    public PlayerController player;
+
     Vector3 lightDir;
     GameObject getGameObject(string tag)
     {
         GameObject go = GameObject.FindWithTag(tag);
         Debug.AssertFormat(go, "Did not found game object: " + tag);
         return go;
+    }
+    GameController getGameController()
+    {
+        return getGameObject("GameController").GetComponent<GameController>();
     }
 
     // Start is called before the first frame update
@@ -41,12 +47,12 @@ public class LightDetector : MonoBehaviour
         if (Physics.Raycast(pos, lightDir, out hit, Mathf.Infinity, layerMask))
         {
             Debug.DrawRay(pos, lightDir * hit.distance, Color.red);
-            Debug.Log("Did Hit");
+            getGameController().playerHitsLight(player, this);
         }
         else
         {
             Debug.DrawRay(pos, lightDir * 1000, Color.yellow);
-            Debug.Log("Did not Hit");
+            getGameController().playerNotHitsLight(player, this);
         }
     }
 }

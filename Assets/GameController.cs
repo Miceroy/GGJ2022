@@ -5,6 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+    public void playerHitsLight(PlayerController player, LightDetector detector)
+    {
+        Debug.Log(player.gameObject.name +  " hits light");
+
+    }
+
+    public void playerNotHitsLight(PlayerController player, LightDetector detector)
+    {
+        Debug.Log(player.gameObject.name + " not hits light");
+    }
+
+
+    public void swapPlayerCharacter()
+    {
+        players[activePlayerCharacter].canMove = false;
+        activePlayerCharacter = (activePlayerCharacter + 1) % players.Count;
+        players[activePlayerCharacter].canMove = true;
+    }
+
     void levelPassed()
     {
         if (GameResults.Instance)
@@ -33,6 +52,7 @@ public class GameController : MonoBehaviour
 
     private int numPlayersInGoal;
     private int sceneIndex;
+    private int activePlayerCharacter;
 
     GameObject[] getGameObjects(string tag)
     {
@@ -83,21 +103,17 @@ public class GameController : MonoBehaviour
 
     public void register(PlayerController player)
     {
+        player.canMove = false;
         players.Add(player);
+        players[activePlayerCharacter].canMove = true;
     }
 
 
     // Start is called before the first frame update
     void Start()
     {
+        activePlayerCharacter = 0;
         sceneIndex = SceneManager.GetActiveScene().buildIndex;
-        /*GameObject[] gos = getGameObjects("Player");
-        foreach(GameObject go in gos)
-        {
-            PlayerController player = go.GetComponent<PlayerController>();
-            Debug.AssertFormat(player, "No PlayerController in object, which is tagget to Player");
-            players.Add(player);
-        }*/
     }
 
     // Update is called once per frame

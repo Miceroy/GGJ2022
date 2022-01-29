@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     bool isMovementPressed;
     float rotationFactorPerFrame = 15.0f;
 
-    bool canMove = true;
+    public bool canMove = true;
 
     public bool isMakingAction()
     {
