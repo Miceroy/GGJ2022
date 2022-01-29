@@ -22,11 +22,14 @@ public class GameController : MonoBehaviour
         {
             if (player.lightState == PlayerController.LightState.InShadow)
             {
-                Debug.Log("Lose by character going in light: " + player.gameObject.name);
-                loseGame();
+                Debug.Log("WARNING: Character going in light: " + player.gameObject.name);
+                outOfArea = true;
             }
         }
     }
+
+    float loseTimer;
+    bool outOfArea;
 
     public void playerNotHitsLight(PlayerController player, LightDetector detector)
     {
@@ -36,27 +39,14 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            if (player.lightState == PlayerController.LightState.InLight) {
-                Debug.Log("Game LOSE! Caracter going in shadow: " + player.gameObject.name);
-                loseGame();
+            if (player.lightState == PlayerController.LightState.InLight)
+            {
+                Debug.Log("WARNING: Character going in shawod: " + player.gameObject.name);
+                outOfArea = true;
             }
         }
     }
 
-    void loseGame()
-    {
-        if (GameResults.Instance)
-        {
-            sceneIndex = SceneManager.sceneCountInBuildSettings - 1;
-            GameResults.Instance.didWin = false;
-            SceneManager.LoadScene(sceneIndex);
-        }
-        else
-        {
-            Debug.Log("Game lose! Reloading scene, because not started from main menu.");
-            SceneManager.LoadScene(sceneIndex);
-        }
-    }
 
     public void swapPlayerCharacter()
     {
@@ -164,6 +154,7 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        loseTimer = 0;
         activePlayerCharacter = 0;
         sceneIndex = SceneManager.GetActiveScene().buildIndex;
     }
@@ -172,5 +163,33 @@ public class GameController : MonoBehaviour
     void Update()
     {
         numPlayersInGoal = 0;
+        if (outOfArea)
+        {
+            loseTimer += Time.deltaTime;
+            Debug.Log("loseTimer: " + loseTimer.ToString());
+            if (loseTimer > 0.1f)
+            {
+                if (GameResults.Instance)
+                {
+                    Debug.Log("Game lose! Loading next scene.");
+                    sceneIndex = SceneManager.sceneCountInBuildSettings - 1;
+                    GameResults.Instance.didWin = false;
+                    SceneManager.LoadScene(sceneIndex);
+                    loseTimer = 0;
+                }
+                else
+                {
+                    Debug.Log("Game lose! Reloading scene, because not started from main menu.");
+                    SceneManager.LoadScene(sceneIndex);
+                    loseTimer = 0;
+                }
+            }
+        }
+        else
+        {
+            //Debug.Log("Reset lose timer: " + loseTimer.ToString());
+            //loseTimer = 0;
+        }
+        outOfArea = false;
     }
 }
