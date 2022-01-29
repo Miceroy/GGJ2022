@@ -273,9 +273,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed139cd5e63f477488f8d6905a1eef4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 45
-  end1: {fileID: 5002120866118030218}
-  end2: {fileID: 3464806006904738432}
 --- !u!95 &1936535258596718941
 Animator:
   serializedVersion: 4
