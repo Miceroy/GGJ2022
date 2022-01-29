@@ -26,7 +26,6 @@ public class PlayerController : MonoBehaviour
     bool isMovementPressed;
     float rotationFactorPerFrame = 15.0f;
 
-    public bool canMove = true;
     private bool makesAction = false;
 
     public bool isMakingAction()
@@ -69,13 +68,10 @@ public class PlayerController : MonoBehaviour
 
     void onMovementInput(InputAction.CallbackContext context)
     {
-        if (canMove)
-        {
-            currentMovementInput = context.ReadValue<Vector2>();
-            currentMovement.x = currentMovementInput.x;
-            currentMovement.z = currentMovementInput.y;
-            isMovementPressed = currentMovementInput.x != 0 || currentMovementInput.y != 0;
-        }
+        currentMovementInput = context.ReadValue<Vector2>();
+        currentMovement.x = currentMovementInput.x;
+        currentMovement.z = currentMovementInput.y;
+        isMovementPressed = currentMovementInput.x != 0 || currentMovementInput.y != 0;
     }
 
     void handleGravity()

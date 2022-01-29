@@ -19,9 +19,11 @@ public class GameController : MonoBehaviour
 
     public void swapPlayerCharacter()
     {
-        players[activePlayerCharacter].canMove = false;
+        Debug.Log("swapPlayerCharacter: " + activePlayerCharacter.ToString());
+        players[activePlayerCharacter].enabled = false;
+        //Debug.Log("swapPlayerCharacter");
         activePlayerCharacter = (activePlayerCharacter + 1) % players.Count;
-        players[activePlayerCharacter].canMove = true;
+        players[activePlayerCharacter].enabled = true;
     }
 
     void levelPassed()
@@ -61,7 +63,7 @@ public class GameController : MonoBehaviour
         return gos;
     }
 
-    List<PlayerController> players = new List<PlayerController>();
+    List<PlayerController> players;
 
     public void checkPlayerNearGoal(GoalHandler goal)
     {
@@ -107,9 +109,13 @@ public class GameController : MonoBehaviour
 
     public void register(PlayerController player)
     {
-        player.canMove = false;
+        if(players == null)
+        {
+            players = new List<PlayerController>();
+        }
+        player.enabled = false;
         players.Add(player);
-        players[activePlayerCharacter].canMove = true;
+        players[activePlayerCharacter].enabled = true;
     }
 
 
