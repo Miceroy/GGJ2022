@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - MainLight
+  - CinematicCamera
   layers:
   - Default
   - TransparentFX
