@@ -61,7 +61,7 @@ public class GameController : MonoBehaviour
         {
             item.direction = player.lastDelta;
             item.direction.y = 0;
-            item.direction.Normalize();
+            //item.direction = player.lastDelta.normalized * player.lastDelta.magnitude;
         }
     }
 

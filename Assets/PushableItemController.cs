@@ -14,11 +14,14 @@ public class PushableItemController : MonoBehaviour
         return go;
     }
 
+    private void Update()
+    {
+    }
     void FixedUpdate()
     {
         if (direction.magnitude > 0)
         {
-            transform.Translate(20 * direction * Time.fixedDeltaTime);
+            transform.Translate(15*direction.normalized * Time.fixedDeltaTime);
             direction.Set(0, 0, 0);
         }
     }
