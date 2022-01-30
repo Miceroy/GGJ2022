@@ -163,7 +163,7 @@ public class GameController : MonoBehaviour
                 if(numPlayersInGoal == players.Count)
                 {
                     onWinGame();
-                    Invoke("gameWinSceneload", 3.0f);
+                    Invoke("gameWinSceneload", 1.5f);
                 }
             }
         }
@@ -225,7 +225,7 @@ public class GameController : MonoBehaviour
             {
                 players[activePlayerCharacter].enabled = false;
                 onLoseGame();
-                Invoke("gameLoseSceneload", 3.0f);                
+                Invoke("gameLoseSceneload", 1.5f);                
             }
         }
         else
