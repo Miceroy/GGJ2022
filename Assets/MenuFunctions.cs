@@ -20,11 +20,12 @@ public class MenuFunctions : MonoBehaviour
     {
         if (GameResults.Instance && GameResults.Instance.didWin)
         {
+            GameResults.Instance.lastLevel = 0;
             mainMenu();
         }
         else
         {
-            SceneManager.LoadScene(GameResults.Instance.lastLevel);
+            SceneManager.LoadScene(GameResults.Instance.getLevelName());
         }        
     }
 
