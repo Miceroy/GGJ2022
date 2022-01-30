@@ -200,7 +200,7 @@ public class GameController : MonoBehaviour
         {
             loseTimer += Time.deltaTime;
             Debug.Log("loseTimer: " + loseTimer.ToString());
-            if (loseTimer > 1.1f)
+            if (loseTimer > 0.1f)
             {
                 onLoseGame();
                 Invoke("gameLoseSceneload", 3.0f);                
