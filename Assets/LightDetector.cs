@@ -40,7 +40,7 @@ public class LightDetector : MonoBehaviour
 
     void Update()
     {
-        //bool hitsLight = false;
+        bool hitsLight = false;
         // Bit shift the index of the layer (8) to get a bit mask
         //int layerMask = 1 << 8;
 
@@ -56,19 +56,17 @@ public class LightDetector : MonoBehaviour
         if (Physics.Raycast(pos, lightDir, out hit, Mathf.Infinity, layerMask))
         {
             Debug.DrawRay(pos - (delta * lightDir), lightDir * hit.distance, Color.red);
-            //hitsLight = false;
+            hitsLight = false;
             //Debug.Log(Time.realtimeSinceStartup.ToString() + ": Not hits light: " + gameObject.name);
-            getGameController().notHitsLight(player, this);
         }
         else
         {
             Debug.DrawRay(pos - (delta * lightDir), lightDir * 1000, Color.magenta);
-            //hitsLight = true;
+            hitsLight = true;
             //Debug.Log(Time.realtimeSinceStartup.ToString() + ": Hits light:" + gameObject.name);
-            getGameController().hitsLight(player, this);
         }
 
-        /*GameObject[] gos = getGameObjects("PushableLight");
+        GameObject[] gos = getGameObjects("PushableLight");
         foreach (GameObject go in gos)
         {
             Vector3 direction = (go.transform.position - pos).normalized;
@@ -79,10 +77,10 @@ public class LightDetector : MonoBehaviour
             }
             else
             {
-                if (distance < go.GetComponent<PushableLight>().radius)
+                if (distance < go.GetComponent<PushableLight>().radius && go.GetComponent<PushableLight>().isLightActive())
                 {
                     Debug.DrawRay(pos - (delta * direction), direction * distance, Color.magenta);
-                    Debug.Log("Is in pushable light!");
+                    //Debug.Log("Is in pushable light!");
                     hitsLight = true;
                 }
                 else
@@ -94,11 +92,11 @@ public class LightDetector : MonoBehaviour
 
         if (hitsLight)
         {
-            getGameController().playerHitsLight(player, this);
+            getGameController().hitsLight(player, this);
         }
         else
         {
-            getGameController().playerNotHitsLight(player, this);
-        }*/
+            getGameController().notHitsLight(player, this);
+        }
     }
 }
