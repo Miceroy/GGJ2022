@@ -7,7 +7,7 @@ public class LightDetector : MonoBehaviour
     public PlayerController player;
 
     Vector3 lightDir;
-    bool hitsLight = false;
+    //bool hitsLight = false;
     GameObject getGameObject(string tag)
     {
         GameObject go = GameObject.FindWithTag(tag);
@@ -32,69 +32,73 @@ public class LightDetector : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+   /* void Update()
     {
-        hitsLight = false;
         //Debug.DrawLine(transform.position, transform.position + (10 * lightDir), Color.red);
         //Debug.DrawLine(transform.position, transform.position + (-10 * lightDir), Color.green);
-    }
+    }*/
 
-    void FixedUpdate()
+    void Update()
     {
+        //bool hitsLight = false;
         // Bit shift the index of the layer (8) to get a bit mask
         //int layerMask = 1 << 8;
 
-        int layerMask = LayerMask.GetMask("PushableObject", "PushableLight");
+        int layerMask = LayerMask.GetMask("PushableObject", "PushableLight", "IgnoreRaycast");
 
         // This would cast rays only against colliders in layer 8.
         // But instead we want to collide against everything except layer 8. The ~ operator does this, it inverts a bitmask.
         layerMask = ~layerMask;
-
+        float delta = 0.5f;
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
-        Vector3 pos = transform.position + (0.5f * lightDir);
+        Vector3 pos = transform.position + (delta * lightDir);
         if (Physics.Raycast(pos, lightDir, out hit, Mathf.Infinity, layerMask))
         {
-            Debug.DrawRay(pos - (0.5f * lightDir), lightDir * hit.distance, Color.cyan);
-            GameObject[] gos = getGameObjects("PushableLight");
-            foreach (GameObject go in gos)
+            Debug.DrawRay(pos - (delta * lightDir), lightDir * hit.distance, Color.red);
+            //hitsLight = false;
+            Debug.Log(Time.realtimeSinceStartup.ToString() + ": Not hits light: " + gameObject.name);
+            getGameController().notHitsLight(player, this);
+        }
+        else
+        {
+            Debug.DrawRay(pos - (delta * lightDir), lightDir * 1000, Color.magenta);
+            //hitsLight = true;
+            Debug.Log(Time.realtimeSinceStartup.ToString() + ": Hits light:" + gameObject.name);
+            getGameController().hitsLight(player, this);
+        }
+
+        /*GameObject[] gos = getGameObjects("PushableLight");
+        foreach (GameObject go in gos)
+        {
+            Vector3 direction = (go.transform.position - pos).normalized;
+            float distance = (go.transform.position - pos).magnitude;
+            if (Physics.Raycast(pos, direction, out hit, distance, layerMask))
             {
-                Vector3 direction = (go.transform.position - pos).normalized;
-                float distance = (go.transform.position - pos).magnitude;
-                if (Physics.Raycast(pos, direction, out hit, distance, layerMask))
+                Debug.DrawRay(pos - (delta * direction), direction * hit.distance, Color.cyan);
+            }
+            else
+            {
+                if (distance < go.GetComponent<PushableLight>().radius)
                 {
-                    Debug.DrawRay(pos - (0.5f * direction), direction * hit.distance, Color.cyan);
+                    Debug.DrawRay(pos - (delta * direction), direction * distance, Color.magenta);
+                    Debug.Log("Is in pushable light!");
+                    hitsLight = true;
                 }
                 else
                 {
-                    if (distance < go.GetComponent<PushableLight>().radius)
-                    {
-                        Debug.DrawRay(pos - (0.5f * direction), direction * distance, Color.magenta);
-                        Debug.Log("Is in pushable light!");
-                        hitsLight = true;
-                    }
-                    else
-                    {
-                        Debug.DrawRay(pos - (0.5f * direction), direction * hit.distance, Color.cyan);
-                    }
+                    Debug.DrawRay(pos - (delta * direction), direction * hit.distance, Color.cyan);
                 }
             }
         }
-        else
-        {
-            Debug.DrawRay(pos - (0.5f * lightDir), lightDir * 1000, Color.magenta);
-            hitsLight = true;
-        }
-
-        
 
         if (hitsLight)
         {
-            getGameController().playerNotHitsLight(player, this);
+            getGameController().playerHitsLight(player, this);
         }
         else
         {
-            getGameController().playerHitsLight(player, this);
-        }
+            getGameController().playerNotHitsLight(player, this);
+        }*/
     }
 }

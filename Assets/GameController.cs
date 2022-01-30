@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
         return gos;
     }
 
-    public void playerHitsLight(PlayerController player, LightDetector detector)
+    public void hitsLight(PlayerController player, LightDetector detector)
     {
         if(player.lightState == PlayerController.LightState.Unknown)
         {
@@ -31,6 +31,8 @@ public class GameController : MonoBehaviour
             {
                 Debug.Log("WARNING: Character going in light: " + player.gameObject.name);
                 outOfArea = true;
+            } else
+            {
             }
         }
     }
@@ -38,7 +40,7 @@ public class GameController : MonoBehaviour
     float loseTimer;
     bool outOfArea;
 
-    public void playerNotHitsLight(PlayerController player, LightDetector detector)
+    public void notHitsLight(PlayerController player, LightDetector detector)
     {
         if (player.lightState == PlayerController.LightState.Unknown)
         {
@@ -50,6 +52,9 @@ public class GameController : MonoBehaviour
             {
                 Debug.Log("WARNING: Character going in shawod: " + player.gameObject.name);
                 outOfArea = true;
+            }
+            else
+            {
             }
         }
     }
@@ -184,7 +189,7 @@ public class GameController : MonoBehaviour
         {
             loseTimer += Time.deltaTime;
             Debug.Log("loseTimer: " + loseTimer.ToString());
-            if (loseTimer > 0.1f)
+            if (loseTimer > 1.1f)
             {
                 if (GameResults.Instance)
                 {
