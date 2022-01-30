@@ -130,9 +130,21 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 7122657e7a33b2b4da5e3c8341a847c7, type: 2}
+    - target: {fileID: -6777263437768315661, guid: 37d59dd015633494db1e5760fdc37cd5, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4704645038048159337, guid: 37d59dd015633494db1e5760fdc37cd5, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 37d59dd015633494db1e5760fdc37cd5, type: 3}
       propertyPath: m_Name
       value: Lever
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 37d59dd015633494db1e5760fdc37cd5, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 37d59dd015633494db1e5760fdc37cd5, type: 3}
       propertyPath: m_IsActive
