@@ -8,6 +8,23 @@ public class GameResults : MonoBehaviour
 
     public static GameResults Instance { get { return _instance; } }
 
+    string[] levels = {
+        "Scenes/Level1",
+        "Scenes/Level2",
+        "Scenes/Level3",
+        "Scenes/Level4",
+        "Scenes/Level5"
+    };
+
+    public int getLevelCount()
+    {
+        return levels.Length;
+    }
+
+    public string getLevelName()
+    {
+        return levels[lastLevel];
+    }
 
     private void Awake()
     {
@@ -23,5 +40,5 @@ public class GameResults : MonoBehaviour
     }
 
     public bool didWin;
-    public int lastLevel;
+    public int lastLevel = 0;
 }

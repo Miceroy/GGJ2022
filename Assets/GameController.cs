@@ -113,29 +113,28 @@ public class GameController : MonoBehaviour
         hasPlayed = false;
         if (GameResults.Instance)
         {
-            ++sceneIndex;
+            ++GameResults.Instance.lastLevel;
 
-            if(sceneIndex >= (SceneManager.sceneCountInBuildSettings-1))
+            if(GameResults.Instance.lastLevel >= GameResults.Instance.getLevelCount())
             {
                 GameResults.Instance.didWin = true;
                 SceneManager.LoadScene(SceneManager.sceneCountInBuildSettings - 1);
             }
             else
             {
-                string levels = sceneIndex.ToString() + "/" + SceneManager.sceneCountInBuildSettings.ToString();
+                string levels = GameResults.Instance.lastLevel.ToString() + "/" + SceneManager.sceneCountInBuildSettings.ToString();
                 Debug.Log("Level passed. Loading next level: " + levels);
-                SceneManager.LoadScene(sceneIndex);
+                SceneManager.LoadScene(GameResults.Instance.getLevelName());
             }
         }
         else
         {
             Debug.Log("Level passed! Reloading scene, because not started from main menu.");
-            SceneManager.LoadScene(sceneIndex);
+            SceneManager.LoadScene(GameResults.Instance.getLevelName());
         }
     }
 
     private int numPlayersInGoal;
-    private int sceneIndex;
     private int activePlayerCharacter;
 
     /*GameObject[] getGameObjects(string tag)
@@ -144,6 +143,8 @@ public class GameController : MonoBehaviour
         Debug.AssertFormat(gos.Length > 0, "Did not found game objects of type: " + tag);
         return gos;
     }*/
+
+    bool gameDone = false;
 
     List<PlayerController> players;
 
@@ -162,7 +163,11 @@ public class GameController : MonoBehaviour
                 if(numPlayersInGoal == players.Count)
                 {
                     onWinGame();
-                    Invoke("gameWinSceneload", 1.5f);
+                    if (gameDone == false)
+                    {
+                        gameDone = true;
+                        Invoke("gameWinSceneload", 1.5f);
+                    }
                 }
             }
         }
@@ -201,11 +206,9 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        sceneIndex = SceneManager.GetActiveScene().buildIndex;
         if (GameResults.Instance)
         {
             GameResults.Instance.didWin = false;
-            GameResults.Instance.lastLevel = sceneIndex;
         }
         numFrames = 0;
         loseTimer = 0;
@@ -253,7 +256,7 @@ public class GameController : MonoBehaviour
         else
         {
             Debug.Log("Game lose! Reloading scene, because not started from main menu.");
-            SceneManager.LoadScene(sceneIndex);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             loseTimer = 0;
         }
     }
