@@ -3139,10 +3139,10 @@ Transform:
   - {fileID: 1444660331}
   - {fileID: 480761845}
   - {fileID: 1587624695}
-  - {fileID: 946384601}
-  - {fileID: 1879266408}
   - {fileID: 1268044528}
+  - {fileID: 946384601}
   - {fileID: 487421263}
+  - {fileID: 1879266408}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3826,7 +3826,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7593596821662496071, guid: acbe471b3f6e0684fbc8805ab7f91af2, type: 3}
       propertyPath: isBridgeOpen
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7948702789578217270, guid: acbe471b3f6e0684fbc8805ab7f91af2, type: 3}
       propertyPath: m_Name
@@ -4240,6 +4240,10 @@ PrefabInstance:
     - target: {fileID: 4491355679264598206, guid: e15036a3696677d428246bb306ee94b9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7593596821662496071, guid: e15036a3696677d428246bb306ee94b9, type: 3}
+      propertyPath: isBridgeOpen
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7948702789578217270, guid: e15036a3696677d428246bb306ee94b9, type: 3}
       propertyPath: m_Name
@@ -4892,7 +4896,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7593596821662496071, guid: acbe471b3f6e0684fbc8805ab7f91af2, type: 3}
       propertyPath: isBridgeOpen
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7948702789578217270, guid: acbe471b3f6e0684fbc8805ab7f91af2, type: 3}
       propertyPath: m_Name
