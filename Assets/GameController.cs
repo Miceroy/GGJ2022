@@ -114,17 +114,16 @@ public class GameController : MonoBehaviour
         if (GameResults.Instance)
         {
             ++sceneIndex;
-            string levels = sceneIndex.ToString() + "/" + SceneManager.sceneCountInBuildSettings.ToString();
-            if (sceneIndex < (SceneManager.sceneCountInBuildSettings - 1))
+
+            if(sceneIndex >= (SceneManager.sceneCountInBuildSettings-1))
             {
-                Debug.Log("Level passed. Loading next level: " + levels);
-                SceneManager.LoadScene(sceneIndex);
+                GameResults.Instance.didWin = true;
+                SceneManager.LoadScene(SceneManager.sceneCountInBuildSettings - 1);
             }
             else
             {
-                Debug.Log("Game WIN!");
-                sceneIndex = SceneManager.sceneCountInBuildSettings - 1;
-                GameResults.Instance.didWin = true;
+                string levels = sceneIndex.ToString() + "/" + SceneManager.sceneCountInBuildSettings.ToString();
+                Debug.Log("Level passed. Loading next level: " + levels);
                 SceneManager.LoadScene(sceneIndex);
             }
         }
@@ -247,9 +246,8 @@ public class GameController : MonoBehaviour
         if (GameResults.Instance)
         {
             Debug.Log("Game lose! Loading next scene.");
-            sceneIndex = SceneManager.sceneCountInBuildSettings - 1;
             GameResults.Instance.didWin = false;
-            SceneManager.LoadScene(sceneIndex);
+            SceneManager.LoadScene(SceneManager.sceneCountInBuildSettings - 1);
             loseTimer = 0;
         }
         else

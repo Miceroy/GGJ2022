@@ -13,6 +13,7 @@ public class ShowResultsText : MonoBehaviour
         {
             if (GameResults.Instance.didWin)
             {
+                buttonText.gameObject.transform.parent.gameObject.SetActive(false);
                 GetComponent<TMPro.TextMeshProUGUI>().text = "You win the game!";
                 buttonText.text = "Return to main menu";
             } else {
