@@ -7,7 +7,8 @@ public class MenuFunctions : MonoBehaviour
 {
     public void startGame()
     {
-        SceneManager.LoadScene(2);
+        GameResults.Instance.lastLevel = 0;
+        SceneManager.LoadScene(GameResults.Instance.getLevelName());
     }
 
     public void showCredits()
