@@ -5,13 +5,27 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+    public AudioSource WinSound;
+    public AudioSource LoseSound;
+    bool hasPlayed = false;
     void onWinGame()
     {
+        if (!WinSound.isPlaying && !hasPlayed )
+        {
+            WinSound.Play();
+            hasPlayed = true;
+
+        }
         // TODO
     }
 
     void onLoseGame()
     {
+        if (!LoseSound.isPlaying && !hasPlayed)
+        {
+            LoseSound.Play();
+            hasPlayed = true;
+        }
         // TODO
     }
 
@@ -96,6 +110,7 @@ public class GameController : MonoBehaviour
 
     void gameWinSceneload()
     {
+        hasPlayed = false;
         if (GameResults.Instance)
         {
             ++sceneIndex;
@@ -216,6 +231,7 @@ public class GameController : MonoBehaviour
 
     void gameLoseSceneload()
     {
+        hasPlayed = false;
         if (GameResults.Instance)
         {
             Debug.Log("Game lose! Loading next scene.");
