@@ -202,10 +202,15 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        if (GameResults.Instance)
+        {
+            GameResults.Instance.didWin = false;
+            GameResults.Instance.lastLevel = sceneIndex;
+        }
         numFrames = 0;
         loseTimer = 0;
         activePlayerCharacter = 0;
-        sceneIndex = SceneManager.GetActiveScene().buildIndex;
     }
 
     // Update is called once per frame
