@@ -5,6 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+    void onWinGame()
+    {
+        // TODO
+    }
+
+    void onLoseGame()
+    {
+        // TODO
+    }
+
     GameObject getGameObject(string tag)
     {
         GameObject go = GameObject.FindGameObjectWithTag(tag);
@@ -84,7 +94,7 @@ public class GameController : MonoBehaviour
         cam.LookAt = players[activePlayerCharacter].transform;
     }
 
-    void levelPassed()
+    void gameWinSceneload()
     {
         if (GameResults.Instance)
         {
@@ -137,7 +147,8 @@ public class GameController : MonoBehaviour
                 ++numPlayersInGoal;
                 if(numPlayersInGoal == players.Count)
                 {
-                    levelPassed();
+                    onWinGame();
+                    Invoke("gameWinSceneload", 3.0f);
                 }
             }
         }
@@ -189,22 +200,10 @@ public class GameController : MonoBehaviour
         {
             loseTimer += Time.deltaTime;
             Debug.Log("loseTimer: " + loseTimer.ToString());
-            if (loseTimer > 1.1f)
+            if (loseTimer > 0.1f)
             {
-                if (GameResults.Instance)
-                {
-                    Debug.Log("Game lose! Loading next scene.");
-                    sceneIndex = SceneManager.sceneCountInBuildSettings - 1;
-                    GameResults.Instance.didWin = false;
-                    SceneManager.LoadScene(sceneIndex);
-                    loseTimer = 0;
-                }
-                else
-                {
-                    Debug.Log("Game lose! Reloading scene, because not started from main menu.");
-                    SceneManager.LoadScene(sceneIndex);
-                    loseTimer = 0;
-                }
+                onLoseGame();
+                Invoke("gameLoseSceneload", 3.0f);                
             }
         }
         else
@@ -213,5 +212,23 @@ public class GameController : MonoBehaviour
             //loseTimer = 0;
         }
         outOfArea = false;
+    }
+
+    void gameLoseSceneload()
+    {
+        if (GameResults.Instance)
+        {
+            Debug.Log("Game lose! Loading next scene.");
+            sceneIndex = SceneManager.sceneCountInBuildSettings - 1;
+            GameResults.Instance.didWin = false;
+            SceneManager.LoadScene(sceneIndex);
+            loseTimer = 0;
+        }
+        else
+        {
+            Debug.Log("Game lose! Reloading scene, because not started from main menu.");
+            SceneManager.LoadScene(sceneIndex);
+            loseTimer = 0;
+        }
     }
 }
