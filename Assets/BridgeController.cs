@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BridgeController : MonoBehaviour, IEffectHandler
 {
+    public bool isBridgeOpen = false;
     public string animationToToggle = "OpenBridge";
 
     float cooldown;
@@ -14,6 +15,14 @@ public class BridgeController : MonoBehaviour, IEffectHandler
         cooldown -= Time.deltaTime;
     }
 
+    public void Start()
+    {
+        if( isBridgeOpen )
+        {
+            Animator animator = GetComponent<Animator>();
+            animator.SetBool(animationToToggle, !animator.GetBool(animationToToggle));
+        }
+    }
 
     public void act()
     {
