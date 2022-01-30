@@ -23,4 +23,5 @@ public class GameResults : MonoBehaviour
     }
 
     public bool didWin;
+    public int lastLevel;
 }

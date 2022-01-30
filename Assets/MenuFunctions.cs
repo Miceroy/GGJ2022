@@ -15,6 +15,18 @@ public class MenuFunctions : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    public void endGame()
+    {
+        if (GameResults.Instance && GameResults.Instance.didWin)
+        {
+            mainMenu();
+        }
+        else
+        {
+            SceneManager.LoadScene(GameResults.Instance.lastLevel);
+        }        
+    }
+
     public void mainMenu()
     {
         SceneManager.LoadScene(0);

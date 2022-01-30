@@ -11,8 +11,16 @@ public class ShowResultsText : MonoBehaviour
     {
         if (GameResults.Instance)
         {
-            GetComponent<TMPro.TextMeshProUGUI>().text = GameResults.Instance.didWin ? "ShowResultsText.cs: Win!" : "ShowResultsText.cs: Lose!";
-        } else
+            if (GameResults.Instance.didWin)
+            {
+                GetComponent<TMPro.TextMeshProUGUI>().text = "You win the game!";
+                buttonText.text = "Return to main menu";
+            } else {
+                GetComponent<TMPro.TextMeshProUGUI>().text = "You lose the game!";
+                buttonText.text = "Retry";
+            }
+        }
+        else
         {
             GetComponent<TMPro.TextMeshProUGUI>().text = "Game not started from main menu, so no results available.";
             buttonText.text = "Restart level";
