@@ -226,7 +226,7 @@ public class GameController : MonoBehaviour
         {
             loseTimer += Time.deltaTime;
             Debug.Log("loseTimer: " + loseTimer.ToString());
-            if (loseTimer > 0.1f)
+            if (loseTimer > 0.2f)
             {
                 players[activePlayerCharacter].enabled = false;
                 onLoseGame();
