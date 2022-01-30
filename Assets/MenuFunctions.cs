@@ -8,6 +8,7 @@ public class MenuFunctions : MonoBehaviour
     public void startGame()
     {
         GameResults.Instance.lastLevel = 0;
+        GameResults.Instance.didWin = false;
         SceneManager.LoadScene(GameResults.Instance.getLevelName());
     }
 
