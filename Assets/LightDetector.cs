@@ -57,14 +57,14 @@ public class LightDetector : MonoBehaviour
         {
             Debug.DrawRay(pos - (delta * lightDir), lightDir * hit.distance, Color.red);
             //hitsLight = false;
-            Debug.Log(Time.realtimeSinceStartup.ToString() + ": Not hits light: " + gameObject.name);
+            //Debug.Log(Time.realtimeSinceStartup.ToString() + ": Not hits light: " + gameObject.name);
             getGameController().notHitsLight(player, this);
         }
         else
         {
             Debug.DrawRay(pos - (delta * lightDir), lightDir * 1000, Color.magenta);
             //hitsLight = true;
-            Debug.Log(Time.realtimeSinceStartup.ToString() + ": Hits light:" + gameObject.name);
+            //Debug.Log(Time.realtimeSinceStartup.ToString() + ": Hits light:" + gameObject.name);
             getGameController().hitsLight(player, this);
         }
 

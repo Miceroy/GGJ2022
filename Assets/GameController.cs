@@ -187,6 +187,7 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        numFrames = 0;
         loseTimer = 0;
         activePlayerCharacter = 0;
         sceneIndex = SceneManager.GetActiveScene().buildIndex;
@@ -195,6 +196,11 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ++numFrames;
+        if (numFrames == 2)
+        {
+            swapPlayerCharacter();
+        }
         numPlayersInGoal = 0;
         if (outOfArea)
         {
@@ -202,6 +208,7 @@ public class GameController : MonoBehaviour
             Debug.Log("loseTimer: " + loseTimer.ToString());
             if (loseTimer > 0.1f)
             {
+                players[activePlayerCharacter].enabled = false;
                 onLoseGame();
                 Invoke("gameLoseSceneload", 3.0f);                
             }
@@ -231,4 +238,6 @@ public class GameController : MonoBehaviour
             loseTimer = 0;
         }
     }
+
+    int numFrames;
 }
